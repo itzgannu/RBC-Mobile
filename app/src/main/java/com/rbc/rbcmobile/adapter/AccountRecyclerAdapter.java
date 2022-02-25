@@ -86,7 +86,6 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
             account_number_tv = itemView.findViewById(R.id.account_recycler_acc_number);
             account_balance_tv = itemView.findViewById(R.id.account_recycler_acc_balance);
             accountRecyclerLayout = itemView.findViewById(R.id.recycler_accounts);
-
         }
 
         public void assignValues(String acc_name, String acc_number, String acc_balance) {
