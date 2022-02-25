@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">RBC Mobile</string>
+    <string name="welcome_screen_image">Welcome Screen Image</string>
+    <string name="welcome_message">Welcome Message</string>
+    <string name="welcome_to_your_rbc_mobile_app_keep_scrolling_for_all_features">Welcome to your RBC Mobile app, keep scrolling for all features</string>
+    <string name="accounts_overview">Accounts Overview</string>
+    <string name="sample">Sample</string>
+    <string name="sample_curl">(Sample)</string>
+    <string name="sample_number">100</string>
 </resources>
