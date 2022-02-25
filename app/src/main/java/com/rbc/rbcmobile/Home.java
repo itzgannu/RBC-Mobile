@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.rbc.rbcaccountlibrary.AccountProvider;
+import com.rbc.rbcaccountlibrary.Transaction;
 import com.rbc.rbcmobile.adapter.AccountRecyclerAdapter;
 import com.rbc.rbcmobile.databinding.ActivityHomeBinding;
 import com.rbc.rbcmobile.model.AccountModel;
 import com.rbc.rbcmobile.viewmodel.AccountViewModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
@@ -33,6 +35,8 @@ public class Home extends AppCompatActivity {
         this.binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
 
+        setWelcomeMessage();
+
         this.accountViewModel = AccountViewModel.getInstance(getApplication());
         List<AccountModel> accountModelList = this.accountViewModel.getAccountsList();
 
@@ -47,4 +51,28 @@ public class Home extends AppCompatActivity {
         accountRecyclerAdapter = new AccountRecyclerAdapter(this, accountModels);
         recyclerView.setAdapter(accountRecyclerAdapter);
     }
+
+    private void setWelcomeMessage() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        String title = "Welcome";
+
+        if(timeOfDay > 0 && timeOfDay < 4){
+            title = "Hello, Night Owl";
+            this.binding.homeWelcomeMessage.setText(title);
+        }if(timeOfDay >= 4 && timeOfDay < 12){
+            title = "Good Morning";
+            this.binding.homeWelcomeMessage.setText(title);
+        }else if(timeOfDay >= 12 && timeOfDay < 16){
+            title = "Good Afternoon";
+            this.binding.homeWelcomeMessage.setText(title);
+        }else if(timeOfDay >= 16 && timeOfDay < 24){
+            title = "Good Evening";
+            this.binding.homeWelcomeMessage.setText(title);
+        }else{
+            this.binding.homeWelcomeMessage.setText(title);
+        }
+    }
+
 }

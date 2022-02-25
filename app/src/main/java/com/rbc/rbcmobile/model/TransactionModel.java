@@ -1,9 +1,13 @@
 package com.rbc.rbcmobile.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
+import com.rbc.rbcaccountlibrary.Transaction;
 
-public class TransactionModel implements Serializable {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+public class TransactionModel implements Serializable, Comparable<TransactionModel> {
     String amount;
     Calendar date;
     String description;
@@ -17,27 +21,35 @@ public class TransactionModel implements Serializable {
         this.description = description;
     }
 
-    public String getAmount() {
-        return amount;
+    public TransactionModel(Transaction transaction) {
+        this.amount = transaction.getAmount();
+        this.date = transaction.getDate();
+        this.description = transaction.getDescription();
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public List<TransactionModel> setTransactionModelList (List<Transaction> transactionList) {
+        List<TransactionModel> transactionModels = new ArrayList<>();
+        for(Transaction transaction : transactionList) {
+            TransactionModel model = new TransactionModel(transaction);
+            transactionModels.add(model);
+        }
+        return transactionModels;
+    }
+
+    public String getAmount() {
+        return amount;
     }
 
     public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public int compareTo(TransactionModel o) {
+        return getDate().getTime().compareTo(o.getDate().getTime());
     }
 }

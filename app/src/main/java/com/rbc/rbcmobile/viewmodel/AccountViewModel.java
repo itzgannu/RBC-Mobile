@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.rbc.rbcaccountlibrary.Account;
 import com.rbc.rbcaccountlibrary.AccountProvider;
+import com.rbc.rbcaccountlibrary.Transaction;
 import com.rbc.rbcmobile.model.AccountModel;
 
 import java.util.List;
