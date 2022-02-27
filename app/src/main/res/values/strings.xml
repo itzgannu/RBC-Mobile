@@ -11,4 +11,6 @@
     <string name="unable_to_fetch_kindly_retry">UNABLE TO FETCH, KINDLY RETRY!</string>
     <string name="retry">RETRY</string>
     <string name="transactions">TRANSACTIONS</string>
+    <string name="loading">Loading</string>
+    <string name="no_transaction_to_display">No Transaction to display</string>
 </resources>

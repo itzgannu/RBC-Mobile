@@ -1,14 +1,12 @@
 package com.rbc.rbcmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import com.rbc.rbcaccountlibrary.AccountProvider;
-import com.rbc.rbcaccountlibrary.Transaction;
 import com.rbc.rbcmobile.adapter.AccountRecyclerAdapter;
 import com.rbc.rbcmobile.databinding.ActivityHomeBinding;
 import com.rbc.rbcmobile.model.AccountModel;
@@ -38,10 +36,22 @@ public class Home extends AppCompatActivity {
         setWelcomeMessage();
 
         this.accountViewModel = AccountViewModel.getInstance(getApplication());
-        List<AccountModel> accountModelList = this.accountViewModel.getAccountsList();
 
-        //send to recycler view
-        startRecyclerView(accountModelList);
+        observeLiveDataFromVM();
+        getNewList();
+    }
+
+    private void getNewList() {
+        this.accountViewModel.getAllAccountsList();
+    }
+
+    private void observeLiveDataFromVM() {
+        this.accountViewModel.mutableLiveDataAccounts.observe(this, new Observer<List<AccountModel>>() {
+            @Override
+            public void onChanged(List<AccountModel> accountModels) {
+                startRecyclerView(accountModels);
+            }
+        });
     }
 
     private void startRecyclerView(List<AccountModel> accountModels) {
