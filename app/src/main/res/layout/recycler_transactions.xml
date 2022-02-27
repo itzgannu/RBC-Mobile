@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transactions_recycler_layout"
     app:cardElevation="0dp"
     android:layout_width="match_parent"
@@ -10,38 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="80"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/transactions_recycler_acc_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sample"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_marginStart="10dp"
-                android:id="@+id/transactions_recycler_acc_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sample"
-                android:textSize="14sp"/>
-        </LinearLayout>
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/transactions_recycler_acc_amount"
-            android:layout_width="0dp"
+            android:padding="2dp"
+            android:id="@+id/transactions_recycler_acc_date"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
-            android:text="@string/sample_number"
-            android:textAlignment="center"
-            android:textSize="12sp"/>
+            android:text="@string/sample"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            android:background="#D3D3D3"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/transactions_recycler_acc_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sample"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/transactions_recycler_acc_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:text="@string/sample_number"
+                android:textAlignment="viewEnd"
+                android:paddingEnd="20dp"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -8,9 +8,10 @@
     <string name="sample_curl">(Sample)</string>
     <string name="sample_number">100</string>
     <string name="double_click_to_navigate_back_to_home_screen">Double Click to Navigate back to Home Screen</string>
-    <string name="unable_to_fetch_kindly_retry">UNABLE TO FETCH, KINDLY RETRY!</string>
+    <string name="unable_to_fetch_kindly_retry">UNABLE TO REACH OUR SERVERS AT THE MOMENT!</string>
     <string name="retry">RETRY</string>
     <string name="transactions">TRANSACTIONS</string>
     <string name="loading">Loading</string>
     <string name="no_transaction_to_display">No Transaction to display</string>
+    <string name="header">Header</string>
 </resources>
