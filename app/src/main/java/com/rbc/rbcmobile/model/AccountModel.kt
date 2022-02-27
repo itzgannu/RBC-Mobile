@@ -1,50 +1,31 @@
-package com.rbc.rbcmobile.model;
+package com.rbc.rbcmobile.model
 
-import com.rbc.rbcaccountlibrary.Account;
-import com.rbc.rbcaccountlibrary.AccountType;
+import com.rbc.rbcaccountlibrary.Account
+import com.rbc.rbcaccountlibrary.AccountType
+import java.io.Serializable
+import java.util.ArrayList
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+class AccountModel : Serializable {
+    var balance: String? = null
+    var name: String? = null
+    var number: String? = null
+    var accountType: AccountType? = null
 
-public class AccountModel implements Serializable {
-    String balance;
-    String name;
-    String number;
-    AccountType accountType;
+    constructor() {}
 
-    public AccountModel() {
+    constructor(account: Account) {
+        balance = account.balance
+        name = account.name
+        number = account.number
+        accountType = account.type
     }
 
-    public AccountModel(Account account) {
-        this.balance = account.getBalance();
-        this.name = account.getName();
-        this.number = account.getNumber();
-        this.accountType = account.getType();
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public List<AccountModel> setAccountModelList (List<Account> accountList) {
-        List<AccountModel> accountModels = new ArrayList<>();
-        for(Account account : accountList) {
-            AccountModel model = new AccountModel(account);
-            accountModels.add(model);
+    fun setAccountModelList(accountList: List<Account>): List<AccountModel> {
+        val accountModels: MutableList<AccountModel> = ArrayList()
+        for (account in accountList) {
+            val model = AccountModel(account)
+            accountModels.add(model)
         }
-        return accountModels;
+        return accountModels
     }
 }

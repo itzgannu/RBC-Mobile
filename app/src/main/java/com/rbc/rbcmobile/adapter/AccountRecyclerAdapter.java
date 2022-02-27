@@ -18,14 +18,14 @@ import com.rbc.rbcmobile.model.AccountModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecyclerAdapter.MyViewHolder> {
     Context context;
     List<AccountModel> accountModelList;
+    boolean newOrdinal = true;
+    int previousOrdinal = 0;
 
-    boolean newOrdinal = true; int previousOrdinal = 0;
-
-    //constructor
     public AccountRecyclerAdapter(Context context, List<AccountModel> accountModelList) {
         this.context = context;
         this.accountModelList = accountModelList;
@@ -38,7 +38,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         for(int i = 0 ; i<accountModelList.size(); i++) {
             if(seq<4){
                 for(int j=0; j<accountModelList.size(); j++) {
-                    int typeNum = accountModelList.get(j).getAccountType().ordinal();
+                    int typeNum = Objects.requireNonNull(accountModelList.get(j).getAccountType()).ordinal();
                     if(typeNum == seq ) {
                         groupedList.add(accountModelList.get(j));
                     }
@@ -61,7 +61,7 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         String acc_name = accountModelList.get(position).getName();
         String acc_number = accountModelList.get(position).getNumber();
         String acc_balance = accountModelList.get(position).getBalance();
-        int ordinal = accountModelList.get(position).getAccountType().ordinal();
+        int ordinal = Objects.requireNonNull(accountModelList.get(position).getAccountType()).ordinal();
         
         holder.assignValues(acc_name, acc_number, acc_balance, ordinal);
 

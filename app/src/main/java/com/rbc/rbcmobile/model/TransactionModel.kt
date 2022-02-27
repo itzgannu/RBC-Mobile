@@ -1,55 +1,38 @@
-package com.rbc.rbcmobile.model;
+package com.rbc.rbcmobile.model
 
-import com.rbc.rbcaccountlibrary.Transaction;
+import com.rbc.rbcaccountlibrary.Transaction
+import java.io.Serializable
+import java.util.*
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+class TransactionModel : Serializable, Comparable<TransactionModel> {
+    var amount: String? = null
+    var date: Calendar? = null
+    var description: String? = null
 
-public class TransactionModel implements Serializable, Comparable<TransactionModel> {
-    String amount;
-    Calendar date;
-    String description;
+    constructor() {}
 
-    public TransactionModel() {
+    constructor(amount: String?, date: Calendar?, description: String?) {
+        this.amount = amount
+        this.date = date
+        this.description = description
     }
 
-    public TransactionModel(String amount, Calendar date, String description) {
-        this.amount = amount;
-        this.date = date;
-        this.description = description;
+    constructor(transaction: Transaction) {
+        amount = transaction.amount
+        date = transaction.date
+        description = transaction.description
     }
 
-    public TransactionModel(Transaction transaction) {
-        this.amount = transaction.getAmount();
-        this.date = transaction.getDate();
-        this.description = transaction.getDescription();
-    }
-
-    public List<TransactionModel> setTransactionModelList (List<Transaction> transactionList) {
-        List<TransactionModel> transactionModels = new ArrayList<>();
-        for(Transaction transaction : transactionList) {
-            TransactionModel model = new TransactionModel(transaction);
-            transactionModels.add(model);
+    fun setTransactionModelList(transactionList: List<Transaction>): List<TransactionModel> {
+        val transactionModels: MutableList<TransactionModel> = ArrayList()
+        for (transaction in transactionList) {
+            val model = TransactionModel(transaction)
+            transactionModels.add(model)
         }
-        return transactionModels;
+        return transactionModels
     }
 
-    public String getAmount() {
-        return amount;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public int compareTo(TransactionModel o) {
-        return getDate().getTime().compareTo(o.getDate().getTime());
+    override fun compareTo(other: TransactionModel): Int {
+        return date!!.time.compareTo(other.date!!.time)
     }
 }

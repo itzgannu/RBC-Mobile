@@ -8,10 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.rbc.rbcaccountlibrary.Account;
 import com.rbc.rbcaccountlibrary.AccountProvider;
-import com.rbc.rbcaccountlibrary.AccountType;
-import com.rbc.rbcaccountlibrary.Transaction;
 import com.rbc.rbcmobile.model.AccountModel;
-import com.rbc.rbcmobile.model.TransactionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +22,14 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AccountViewModel extends AndroidViewModel {
-    //backend connection
     private final AccountProvider accountProvider = AccountProvider.INSTANCE;
 
-    //private Instance Variable
     private static AccountViewModel instance;
 
     public MutableLiveData<List<AccountModel>> mutableLiveDataAccounts = new MutableLiveData<>();
     public MutableLiveData<Throwable> accountErrorMutable = new MutableLiveData<Throwable>();
     Disposable disposable ;
 
-    //public Instance method
     public static AccountViewModel getInstance(Application application) {
         if(instance == null) {
             instance = new AccountViewModel(application);
@@ -43,19 +37,10 @@ public class AccountViewModel extends AndroidViewModel {
         return instance;
     }
 
-    //Constructor which is created automatically because of extending AndroidViewModel to the current class
     public AccountViewModel(@NonNull Application application) {
         super(application);
     }
 
-    //methods
-    public List<AccountModel> getAccountsList() {
-        List<Account> accountList = accountProvider.getAccountsList();
-        AccountModel accountModel = new AccountModel();
-        return  accountModel.setAccountModelList(accountList);
-    }
-
-    //using rxJava
     public void getAllAccountsList() {
         clearData();
         disposable = Single.create(new SingleOnSubscribe<List<AccountModel>>() {
@@ -74,13 +59,11 @@ public class AccountViewModel extends AndroidViewModel {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<AccountModel>>() {
             @Override
             public void accept(@NonNull List<AccountModel> accountModels) throws Exception {
-                //mutable live data
                 mutableLiveDataAccounts.postValue(accountModels);
             }
         }, new Consumer<Throwable>() {
             @Override
-            public void accept(@NonNull Throwable throwable) throws Exception {
-                //error mutable live data
+            public void accept(@NonNull Throwable throwable) {
                 accountErrorMutable.postValue(throwable);
             }
         });

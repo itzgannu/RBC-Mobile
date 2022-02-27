@@ -2,7 +2,6 @@ package com.rbc.rbcmobile.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +15,14 @@ import com.rbc.rbcmobile.R;
 import com.rbc.rbcmobile.model.TransactionModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.Objects;
 
 public class TransactionRecyclerAdapter extends RecyclerView.Adapter<TransactionRecyclerAdapter.MyViewHolder> {
     Context context;
-    List<TransactionModel> transactionModelList = new ArrayList<>();
+    List<TransactionModel> transactionModelList;
     String previousDate = ""; boolean newDate = true;
 
     public TransactionRecyclerAdapter(Context context, List<TransactionModel> transactionModelList) {
@@ -48,7 +44,7 @@ public class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transaction
 
     @Override
     public void onBindViewHolder(@NonNull TransactionRecyclerAdapter.MyViewHolder holder, int position) {
-        Date date = transactionModelList.get(position).getDate().getTime();
+        Date date = Objects.requireNonNull(transactionModelList.get(position).getDate()).getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
         String stringDate= formatter.format(date);
         String description = transactionModelList.get(position).getDescription();
