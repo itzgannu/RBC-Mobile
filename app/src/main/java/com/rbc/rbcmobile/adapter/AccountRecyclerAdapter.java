@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,9 @@ import java.util.List;
 
 public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecyclerAdapter.MyViewHolder> {
     Context context;
-    List<AccountModel> accountModelList = new ArrayList<>();
+    List<AccountModel> accountModelList;
+
+    boolean newOrdinal = true; int previousOrdinal = 0;
 
     //constructor
     public AccountRecyclerAdapter(Context context, List<AccountModel> accountModelList) {
@@ -58,17 +61,29 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         String acc_name = accountModelList.get(position).getName();
         String acc_number = accountModelList.get(position).getNumber();
         String acc_balance = accountModelList.get(position).getBalance();
+        int ordinal = accountModelList.get(position).getAccountType().ordinal();
         
-        holder.assignValues(acc_name, acc_number, acc_balance);
+        holder.assignValues(acc_name, acc_number, acc_balance, ordinal);
 
-        holder.accountRecyclerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToTransactionScreen = new Intent(context, TransactionList.class).addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                goToTransactionScreen.putExtra("acc_details", accountModelList.get(holder.getAdapterPosition()));
-                context.startActivity(goToTransactionScreen);
-            }
+        holder.tapLayout.setOnClickListener(v -> {
+            Intent goToTransactionScreen = new Intent(context, TransactionList.class).addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+            goToTransactionScreen.putExtra("acc_details", accountModelList.get(holder.getAdapterPosition()));
+            context.startActivity(goToTransactionScreen);
         });
+    }
+
+    private String getTitle(int ordinal) {
+        if(ordinal == 0 ) {
+            return  "CHEQUING";
+        } else if(ordinal == 1) {
+            return "CREDIT CARD";
+        } else if(ordinal == 2) {
+            return "LOAN";
+        } else if (ordinal == 3) {
+            return "MORTGAGE";
+        } else {
+            return "NA";
+        }
     }
 
     @Override
@@ -77,18 +92,34 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView account_name_tv, account_number_tv, account_balance_tv;
+        TextView account_name_tv, account_number_tv, account_balance_tv, account_header;
         MaterialCardView accountRecyclerLayout;
+        LinearLayout tapLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             account_name_tv = itemView.findViewById(R.id.account_recycler_acc_name);
             account_number_tv = itemView.findViewById(R.id.account_recycler_acc_number);
             account_balance_tv = itemView.findViewById(R.id.account_recycler_acc_balance);
+            account_header = itemView.findViewById(R.id.account_recycler_header);
             accountRecyclerLayout = itemView.findViewById(R.id.recycler_accounts);
+            tapLayout = itemView.findViewById(R.id.account_recycler_tapping_layout);
         }
 
-        public void assignValues(String acc_name, String acc_number, String acc_balance) {
+        public void assignValues(String acc_name, String acc_number, String acc_balance, int ordinal) {
+            if(newOrdinal) {
+                previousOrdinal = ordinal;
+                String title = getTitle(ordinal);
+                account_header.setText(title); newOrdinal = false;
+            }
+            else if(ordinal != previousOrdinal) {
+                previousOrdinal = ordinal;
+                String title = getTitle(ordinal);
+                account_header.setText(title);
+            }
+            else {
+                account_header.setVisibility(View.GONE);
+            }
             account_name_tv.setText(acc_name);
             String newNumber = "("+acc_number+")" ;
             account_number_tv.setText(newNumber);

@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/drawable/border_simple.xml" value="0.3769230769230769" />
         <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/layout/activity_transaction_list.xml" value="0.25" />
         <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/layout/recycler_accounts.xml" value="0.36666666666666664" />
         <entry key="..\:/Android/Projects/Android_Store/RBCMobile/app/src/main/res/layout/recycler_transactions.xml" value="0.36666666666666664" />

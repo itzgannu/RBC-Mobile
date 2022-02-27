@@ -1,5 +1,6 @@
 package com.rbc.rbcmobile.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import java.util.TimeZone;
 public class TransactionRecyclerAdapter extends RecyclerView.Adapter<TransactionRecyclerAdapter.MyViewHolder> {
     Context context;
     List<TransactionModel> transactionModelList = new ArrayList<>();
+    String previousDate = ""; boolean newDate = true;
 
     public TransactionRecyclerAdapter(Context context, List<TransactionModel> transactionModelList) {
         this.context = context;
@@ -34,7 +36,7 @@ public class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transaction
     }
 
     private void sortTransactions() {
-        Collections.sort(transactionModelList, Collections.reverseOrder());
+        transactionModelList.sort(Collections.reverseOrder());
     }
 
     @NonNull
@@ -47,7 +49,7 @@ public class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transaction
     @Override
     public void onBindViewHolder(@NonNull TransactionRecyclerAdapter.MyViewHolder holder, int position) {
         Date date = transactionModelList.get(position).getDate().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
         String stringDate= formatter.format(date);
         String description = transactionModelList.get(position).getDescription();
         String amount = transactionModelList.get(position).getAmount();
@@ -73,7 +75,18 @@ public class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transaction
         }
 
         public void assignValues(String date, String description, String amount) {
-            transaction_date.setText(date);
+            if(newDate) {
+                previousDate = date;
+                transaction_date.setText(date);
+                newDate = false;
+            }
+            else if(!date.equalsIgnoreCase(previousDate)) {
+                previousDate = date;
+                transaction_date.setText(date);
+            }
+            else {
+                transaction_date.setVisibility(View.GONE);
+            }
             transaction_amount.setText(amount);
             transaction_description.setText(description);
         }
