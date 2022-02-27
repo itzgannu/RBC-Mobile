@@ -1,27 +1,20 @@
 package com.rbc.rbcmobile.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.rbc.rbcaccountlibrary.Account;
 import com.rbc.rbcaccountlibrary.AccountProvider;
 import com.rbc.rbcaccountlibrary.AccountType;
 import com.rbc.rbcaccountlibrary.Transaction;
-import com.rbc.rbcmobile.model.AccountModel;
 import com.rbc.rbcmobile.model.TransactionModel;
-
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -31,8 +24,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransactionViewModel extends AndroidViewModel {
-
-    //backend connection
     private final AccountProvider accountProvider = AccountProvider.INSTANCE;
 
     public MutableLiveData<List<TransactionModel>> mutableLiveDataTransactions = new MutableLiveData<>();
@@ -99,7 +90,7 @@ public class TransactionViewModel extends AndroidViewModel {
             }
         }, new Consumer<Throwable>() {
             @Override
-            public void accept(@NonNull Throwable throwable) throws Exception {
+            public void accept(@NonNull Throwable throwable) {
                 errorMutable.setValue(throwable);
             }
         });
