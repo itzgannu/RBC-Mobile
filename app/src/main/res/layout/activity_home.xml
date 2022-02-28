@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_alignParentBottom="false"
         android:id="@+id/home_image_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/image_200"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/home_image"
         android:contentDescription="@string/welcome_screen_image"/>
@@ -26,11 +27,11 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="77dp"
+        android:layout_marginStart="@dimen/medium_20"
+        android:layout_marginTop="@dimen/top_margin_large"
         android:contentDescription="@string/welcome_to_your_rbc_mobile_app_keep_scrolling_for_all_features"
         android:text="@string/welcome_message"
-        android:textSize="28sp" />
+        android:textSize="@dimen/text_28" />
 
     <TextView
         android:id="@+id/home_accounts_header"
@@ -40,17 +41,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="@dimen/medium_20"
+        android:layout_marginTop="@dimen/medium_30"
         android:text="@string/accounts_overview"
-        android:textSize="22sp" />
+        android:textSize="@dimen/text_22" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/home_accounts_header"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/small_10"
         android:id="@+id/home_Recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
